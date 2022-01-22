@@ -1,4 +1,4 @@
-# Django Cafetería 
+# Django Playground 
 Sitio Web con Django
 
 # Get Started:
