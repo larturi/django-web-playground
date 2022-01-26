@@ -17,14 +17,14 @@ class PageDetailView(DetailView):
     model = Page
 
 
-@method_decorator(staff_member_required, name='dispatch')
+@method_decorator(staff_member_required(login_url='login'), name='dispatch')
 class PageCreateView(CreateView):
     model = Page
     form_class = PageForm
     success_url = reverse_lazy('pages:pages')
 
 
-@method_decorator(staff_member_required, name='dispatch')
+@method_decorator(staff_member_required(login_url='login'), name='dispatch')
 class PageUpdateView(UpdateView):
     model = Page
     form_class = PageForm
@@ -34,7 +34,7 @@ class PageUpdateView(UpdateView):
         return reverse_lazy('pages:update', args=[self.object.id]) + '?ok'
 
 
-@method_decorator(staff_member_required, name='dispatch')
+@method_decorator(staff_member_required(login_url='login'), name='dispatch')
 class PageDeleteView(DeleteView):
     model = Page
     success_url = reverse_lazy('pages:pages')
