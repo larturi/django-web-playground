@@ -13,5 +13,5 @@ class Message(models.Model):
 
 
 class Thread(models.Model):
-    user = models.ManyToManyField(User, related_name='threads')
+    users = models.ManyToManyField(User, related_name='threads')
     messages = models.ManyToManyField(Message)
