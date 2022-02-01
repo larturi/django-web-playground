@@ -45,6 +45,7 @@ INSTALLED_APPS = [
     # Internal Apps
     'core',
     'pages.apps.PagesConfig',
+    'profiles',
 ]
 
 MIDDLEWARE = [
