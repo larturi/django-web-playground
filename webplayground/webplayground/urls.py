@@ -3,6 +3,7 @@ from django.urls import path, include
 from pages.urls import pages_patterns
 from profiles.urls import profiles_patterns
 from django.conf import settings
+from messenger.urls import messenger_patterns
 
 # Para que haga el redirect al login custom y no al del admin
 # from django.contrib.auth.decorators import login_required
@@ -18,6 +19,8 @@ urlpatterns = [
     path('accounts/', include('registration.urls')),
     # Paths de Profiles
     path('profiles/', include(profiles_patterns)),
+    # Paths de Messenger
+    path('messenger/', include(messenger_patterns)),
 ]
 
 if settings.DEBUG:
