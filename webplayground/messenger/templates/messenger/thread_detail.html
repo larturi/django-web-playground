@@ -59,6 +59,51 @@
               {% endfor %}
             </div>
             <!-- Aquí crearemos el formulario -->
+            <textarea id="content" class="form-control mb-2" rows="2" placeholder="Escribe tu mensaje aqui"></textarea>
+            <button id="send" class="btn btn-primary btn-sm btn-block" disabled>Enviar</button>
+            <script>
+              let send = document.getElementById('send');
+              send.addEventListener('click', function() {
+                let content = encodeURIComponent(document.getElementById('content').value);
+
+                if(content.trim().length > 0) {
+                  const url = '{% url 'messenger:add' thread.pk %}' + '?content=' + content;
+                  fetch(url, {'credentials':'include'}).then(response => response.json()).then(function(data) {
+                    if (data.created) {
+                      send.disabled = true;
+                      var message = document.createElement('div');
+                      message.classList.add('mine', 'mb-3');
+                      message.innerHTML = '<small><i>Hace unos segundos</i></small><br>' + decodeURIComponent(content);
+                      document.getElementById('thread').appendChild(message);
+                      ScrollBottomInThread();
+                    } else {
+                      console.log("Algo ha fallado y el mensaje no se ha podido añadir.")
+                    }
+                  });
+
+                  // Limpio el textarea
+                  document.getElementById('content').value = '';
+                }
+              });
+
+              // Activa o desactiva el botón de enviar dependiendo del contenido del textarea
+              document.getElementById('content').addEventListener('keyup', function() {
+                if(this.value.trim().length > 0) {
+                  send.removeAttribute('disabled');
+                } else {
+                  send.setAttribute('disabled', 'disabled');
+                }
+              });
+
+              // Actualiza el scroll del hilo de conversación
+              function ScrollBottomInThread() {
+                var thread = document.getElementById('thread');
+                thread.scrollTop = thread.scrollHeight;
+              }
+
+              ScrollBottomInThread();
+
+            </script>
           </div>
         </div>
     </div>
